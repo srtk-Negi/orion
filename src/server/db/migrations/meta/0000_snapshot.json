@@ -1,11 +1,11 @@
 {
-  "id": "4def3f82-bef2-42a1-9adb-66ac7ada9131",
+  "id": "39dfbf53-de92-482c-9d0d-1a577a489454",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
   "tables": {
-    "public.gloflow_account": {
-      "name": "gloflow_account",
+    "public.nova_account": {
+      "name": "nova_account",
       "schema": "",
       "columns": {
         "userId": {
@@ -93,10 +93,10 @@
         }
       },
       "foreignKeys": {
-        "gloflow_account_userId_gloflow_user_id_fk": {
-          "name": "gloflow_account_userId_gloflow_user_id_fk",
-          "tableFrom": "gloflow_account",
-          "tableTo": "gloflow_user",
+        "nova_account_userId_nova_user_id_fk": {
+          "name": "nova_account_userId_nova_user_id_fk",
+          "tableFrom": "nova_account",
+          "tableTo": "nova_user",
           "columnsFrom": [
             "userId"
           ],
@@ -108,8 +108,8 @@
         }
       },
       "compositePrimaryKeys": {
-        "gloflow_account_provider_providerAccountId_pk": {
-          "name": "gloflow_account_provider_providerAccountId_pk",
+        "nova_account_provider_providerAccountId_pk": {
+          "name": "nova_account_provider_providerAccountId_pk",
           "columns": [
             "provider",
             "providerAccountId"
@@ -121,8 +121,148 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.gloflow_session": {
-      "name": "gloflow_session",
+    "public.nova_financial_account": {
+      "name": "nova_financial_account",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "provider": {
+          "name": "provider",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "providerAccountId": {
+          "name": "providerAccountId",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "accessToken": {
+          "name": "accessToken",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "refreshToken": {
+          "name": "refreshToken",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "metadata": {
+          "name": "metadata",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "connectedAt": {
+          "name": "connectedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "nova_financial_account_userId_nova_user_id_fk": {
+          "name": "nova_financial_account_userId_nova_user_id_fk",
+          "tableFrom": "nova_financial_account",
+          "tableTo": "nova_user",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.nova_log": {
+      "name": "nova_log",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "message": {
+          "name": "message",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "details": {
+          "name": "details",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "nova_log_userId_nova_user_id_fk": {
+          "name": "nova_log_userId_nova_user_id_fk",
+          "tableFrom": "nova_log",
+          "tableTo": "nova_user",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.nova_session": {
+      "name": "nova_session",
       "schema": "",
       "columns": {
         "sessionToken": {
@@ -162,10 +302,10 @@
         }
       },
       "foreignKeys": {
-        "gloflow_session_userId_gloflow_user_id_fk": {
-          "name": "gloflow_session_userId_gloflow_user_id_fk",
-          "tableFrom": "gloflow_session",
-          "tableTo": "gloflow_user",
+        "nova_session_userId_nova_user_id_fk": {
+          "name": "nova_session_userId_nova_user_id_fk",
+          "tableFrom": "nova_session",
+          "tableTo": "nova_user",
           "columnsFrom": [
             "userId"
           ],
@@ -182,8 +322,244 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.gloflow_user": {
-      "name": "gloflow_user",
+    "public.nova_tag": {
+      "name": "nova_tag",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "color": {
+          "name": "color",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'#4F46E5'"
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "nova_tag_userId_nova_user_id_fk": {
+          "name": "nova_tag_userId_nova_user_id_fk",
+          "tableFrom": "nova_tag",
+          "tableTo": "nova_user",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.nova_transaction_tag": {
+      "name": "nova_transaction_tag",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "transactionId": {
+          "name": "transactionId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "tagId": {
+          "name": "tagId",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "nova_transaction_tag_transactionId_nova_transaction_id_fk": {
+          "name": "nova_transaction_tag_transactionId_nova_transaction_id_fk",
+          "tableFrom": "nova_transaction_tag",
+          "tableTo": "nova_transaction",
+          "columnsFrom": [
+            "transactionId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "nova_transaction_tag_tagId_nova_tag_id_fk": {
+          "name": "nova_transaction_tag_tagId_nova_tag_id_fk",
+          "tableFrom": "nova_transaction_tag",
+          "tableTo": "nova_tag",
+          "columnsFrom": [
+            "tagId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.nova_transaction": {
+      "name": "nova_transaction",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "financialAccountId": {
+          "name": "financialAccountId",
+          "type": "serial",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "source": {
+          "name": "source",
+          "type": "source",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "amount": {
+          "name": "amount",
+          "type": "numeric(12, 2)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "currency": {
+          "name": "currency",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'USD'"
+        },
+        "date": {
+          "name": "date",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        },
+        "status": {
+          "name": "status",
+          "type": "status",
+          "typeSchema": "public",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'cleared'"
+        },
+        "paymentMethod": {
+          "name": "paymentMethod",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "isRecurring": {
+          "name": "isRecurring",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": false,
+          "default": false
+        },
+        "createdAt": {
+          "name": "createdAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "nova_transaction_userId_nova_user_id_fk": {
+          "name": "nova_transaction_userId_nova_user_id_fk",
+          "tableFrom": "nova_transaction",
+          "tableTo": "nova_user",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "nova_transaction_financialAccountId_nova_financial_account_id_fk": {
+          "name": "nova_transaction_financialAccountId_nova_financial_account_id_fk",
+          "tableFrom": "nova_transaction",
+          "tableTo": "nova_financial_account",
+          "columnsFrom": [
+            "financialAccountId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.nova_user": {
+      "name": "nova_user",
       "schema": "",
       "columns": {
         "id": {
@@ -216,14 +592,6 @@
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": false
-        },
-        "role": {
-          "name": "role",
-          "type": "app_user_roles",
-          "typeSchema": "public",
-          "primaryKey": false,
-          "notNull": true,
-          "default": "'basic'"
         }
       },
       "indexes": {},
@@ -234,8 +602,8 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.gloflow_verification_token": {
-      "name": "gloflow_verification_token",
+    "public.nova_verification_token": {
+      "name": "nova_verification_token",
       "schema": "",
       "columns": {
         "identifier": {
@@ -260,8 +628,8 @@
       "indexes": {},
       "foreignKeys": {},
       "compositePrimaryKeys": {
-        "gloflow_verification_token_identifier_token_pk": {
-          "name": "gloflow_verification_token_identifier_token_pk",
+        "nova_verification_token_identifier_token_pk": {
+          "name": "nova_verification_token_identifier_token_pk",
           "columns": [
             "identifier",
             "token"
@@ -275,13 +643,24 @@
     }
   },
   "enums": {
-    "public.app_user_roles": {
-      "name": "app_user_roles",
+    "public.source": {
+      "name": "source",
       "schema": "public",
       "values": [
-        "super_admin",
-        "admin",
-        "basic"
+        "youtube",
+        "twitch",
+        "tiktok",
+        "amazon",
+        "shopify"
+      ]
+    },
+    "public.status": {
+      "name": "status",
+      "schema": "public",
+      "values": [
+        "pending",
+        "cleared",
+        "failed"
       ]
     }
   },

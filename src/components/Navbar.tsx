@@ -69,7 +69,7 @@ export default function Navbar() {
               href="/"
               className="group relative text-xl font-bold tracking-tighter text-gray-900 transition-all duration-300 ease-out hover:scale-105 dark:text-white"
             >
-              Orion
+              Nova
               <div className="absolute inset-0 -z-10 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-cyan-500/20 opacity-0 blur-lg transition-opacity duration-300 group-hover:opacity-100" />
             </Link>
           </div>

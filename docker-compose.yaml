@@ -1,5 +1,5 @@
 services:
-  orion:
+  nova:
     image: postgres
     ports:
       - 5433:5432
