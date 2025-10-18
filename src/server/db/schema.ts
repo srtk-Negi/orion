@@ -2,24 +2,10 @@ import { relations, sql } from "drizzle-orm";
 import { index, pgTableCreator, primaryKey } from "drizzle-orm/pg-core";
 import { type AdapterAccount } from "next-auth/adapters";
 import { env } from "@/env";
-import { pgEnum } from "drizzle-orm/pg-core";
 
 export const createTableFunction = pgTableCreator(
   (name) => `${env.APP_NAME}_${name}`,
 );
-
-// ------------------ CONSTS ------------------
-export const APP_USER_ROLES = ["super_admin", "admin", "basic"] as const;
-
-// ------------------ TYPES ------------------
-export type AppUserRoles = (typeof APP_USER_ROLES)[number];
-
-// ------------------ POSTGRES ENUMS ------------------
-/**
- * user's role on the application level. For the SaaS dev team.
- */
-export const appUserRoles = pgEnum("app_user_roles", APP_USER_ROLES);
-
 
 // ------------------ USERS ------------------
 export const usersTable = createTableFunction("user", (d) => ({
@@ -37,7 +23,6 @@ export const usersTable = createTableFunction("user", (d) => ({
     })
     .default(sql`CURRENT_TIMESTAMP`),
   image: d.varchar({ length: 255 }),
-  role: appUserRoles().notNull().default("basic"),
 }));
 
 // ------------------ AUTH ------------------
@@ -88,6 +73,20 @@ export const verificationTokensTable = createTableFunction(
   (table) => [primaryKey({ columns: [table.identifier, table.token] })],
 );
 
+export const transactionsTable = createTableFunction("transactions", (d) => ({
+  id: d.serial("id").primaryKey(),
+  userId: d
+    .uuid("user_id")
+    .notNull()
+    .references(() => usersTable.id),
+  source: d.text("source").notNull(),
+  name: d.text("name").notNull(),
+  amount: d.numeric("amount").notNull(),
+  currency: d.text("currency").default("USD"),
+  date: d.timestamp("date").defaultNow(),
+  tag: d.text("tag"),
+  recurring: d.text("recurring"),
+}));
 
 // ------------------ RELATIONS ------------------
 export const usersRelations = relations(usersTable, ({ many }) => ({
@@ -107,4 +106,3 @@ export const sessionsRelations = relations(sessionsTable, ({ one }) => ({
     references: [usersTable.id],
   }),
 }));
-

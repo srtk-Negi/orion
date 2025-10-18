@@ -1,23 +1,16 @@
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
-import {
-  CredentialsSignin,
-  type DefaultSession,
-  type NextAuthConfig,
-} from "next-auth";
+import { type DefaultSession, type NextAuthConfig } from "next-auth";
 import DiscordProvider from "next-auth/providers/discord";
 import GoogleProvider from "next-auth/providers/google";
 import GitHubProvider from "next-auth/providers/github";
-import Credentials from "next-auth/providers/credentials";
 
 import { db } from "@/server/db";
 import {
-  type AppUserRoles,
   accountsTable,
   sessionsTable,
   usersTable,
   verificationTokensTable,
 } from "@/server/db/schema";
-import { eq } from "drizzle-orm";
 
 /**
  * Module augmentation for `next-auth` types. Allows us to add custom properties to the `session`
@@ -29,12 +22,7 @@ declare module "next-auth" {
   interface Session extends DefaultSession {
     user: {
       id: string;
-      role?: AppUserRoles;
     } & DefaultSession["user"];
-  }
-
-  interface User {
-    role?: AppUserRoles;
   }
 }
 
@@ -56,32 +44,6 @@ export const authConfig = {
     GitHubProvider({
       clientId: process.env.AUTH_GITHUB_ID,
       clientSecret: process.env.AUTH_GITHUB_SECRET,
-    }),
-    Credentials({
-      credentials: {
-        name: {
-          type: "text",
-          label: "Name",
-          placeholder: "John Doe",
-        },
-        email: {
-          type: "email",
-          label: "Email",
-          placeholder: "johndoe@gmail.com",
-        },
-      },
-      authorize: async (credentials) => {
-        let user = null;
-        user = await db
-          .select()
-          .from(usersTable)
-          .where(eq(usersTable.email, credentials.email as string));
-        if (!user[0]) {
-          return null;
-        }
-        console.log(user);
-        return user[0];
-      },
     }),
   ],
   adapter: DrizzleAdapter(db, {
@@ -131,11 +93,11 @@ export const authConfig = {
       if (new URL(url).origin === new URL(baseUrl).origin) return url;
 
       // Default fallback
-      return baseUrl + "/tenants";
+      return baseUrl + "/";
     },
     jwt: async ({ user, token }) => {
       if (user) {
-        ((token.id = user.id), (token.role = user.role));
+        token.id = user.id;
       }
       return token;
     },
@@ -143,12 +105,10 @@ export const authConfig = {
       // Prioritize the user from the database on initial sign-in
       if (user) {
         session.user.id = user.id;
-        session.user.role = user.role;
       }
       // Fallback to the token for all subsequent requests
       else if (token) {
         session.user.id = token.id as string;
-        session.user.role = token.role as AppUserRoles;
       }
       return session;
     },

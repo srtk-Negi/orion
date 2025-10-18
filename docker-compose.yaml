@@ -1,5 +1,5 @@
 services:
-  glowflowdb:
+  orion:
     image: postgres
     ports:
       - 5433:5432

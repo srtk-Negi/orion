@@ -26,7 +26,7 @@ export default function HomePage() {
       <section className="relative px-4 py-20 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl text-center">
           <h1 className="text-foreground mb-6 text-4xl leading-tight font-bold sm:text-5xl lg:text-6xl">
-            GloFlow
+            Orion
           </h1>
           <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Link href={"/auth/signin"}>
@@ -37,7 +37,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
     </div>
   );
 }
