@@ -79,7 +79,7 @@
 }
 
 .dark {
-  --background: #1e113d;
+  --background: #090414;
   --foreground: #ffffff;
   --card: #1e113d;
   --card-foreground: #ffffff;
@@ -153,4 +153,7 @@
 }
 .star-twinkle {
   animation: twinkle 2s ease-in-out infinite;
+}
+body {
+  @apply bg-background;
 }
