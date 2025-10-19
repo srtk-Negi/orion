@@ -71,7 +71,7 @@ export default function Navbar() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  className="group relative px-4 py-2 text-sm font-medium text-gray-700 transition-all duration-300 ease-out hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+                  className="group relative px-4 py-2 text-sm font-medium text-white transition-all duration-300 ease-out hover:text-[#FFDC6A]"
                 >
                   <span className="relative z-10">{item.name}</span>
                   <div
