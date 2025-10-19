@@ -32,7 +32,7 @@ const Dashboard = async () => {
     .where(eq(transactionsTable.userId, session.user.id));
 
   return (
-    <div className="dark radial-bg mt-10">
+    <div className="dark radial-bg mt-10 flex min-h-screen flex-col">
       <TransactionTable transactions={transactions} />
     </div>
   );
