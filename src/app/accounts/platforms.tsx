@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { Search } from "lucide-react";
 import { MOCK_PLATFORMS } from "./mockPlatforms";
 import { type SocialAccount } from "./page";
+import Image from "next/image";
 
 export default function PlatformsPage({
   connectedAccounts,
@@ -122,8 +123,13 @@ export default function PlatformsPage({
                 >
                   <div className="mb-4 flex items-start justify-between">
                     <div className="flex items-center gap-3">
-                      <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-gradient-to-br from-blue-500 to-purple-600 text-xl font-bold text-white">
-                        {platform.providerName[0]}
+                      <div className="flex h-12 w-12 items-center justify-center rounded-lg text-xl font-bold text-white">
+                        <Image
+                          src={`/img/${platform.providerName.toLowerCase()}.png`}
+                          alt={platform.providerName}
+                          width={32}
+                          height={32}
+                        />
                       </div>
                       <div>
                         <h3 className="text-lg font-semibold">
