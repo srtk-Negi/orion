@@ -15,15 +15,6 @@ CREATE TABLE "nova_account" (
 	CONSTRAINT "nova_account_provider_providerAccountId_pk" PRIMARY KEY("provider","providerAccountId")
 );
 --> statement-breakpoint
-CREATE TABLE "nova_log" (
-	"id" serial PRIMARY KEY NOT NULL,
-	"userId" varchar(255) NOT NULL,
-	"type" text NOT NULL,
-	"message" text,
-	"details" jsonb,
-	"createdAt" timestamp DEFAULT now()
-);
---> statement-breakpoint
 CREATE TABLE "nova_session" (
 	"sessionToken" varchar(255) PRIMARY KEY NOT NULL,
 	"userId" varchar(255) NOT NULL,
@@ -36,21 +27,7 @@ CREATE TABLE "nova_social_account" (
 	"provider" text NOT NULL,
 	"providerAccountId" varchar(255) NOT NULL,
 	"metadata" jsonb,
-	"connectedAt" timestamp DEFAULT now()
-);
---> statement-breakpoint
-CREATE TABLE "nova_tag" (
-	"id" serial PRIMARY KEY NOT NULL,
-	"userId" varchar(255) NOT NULL,
-	"name" text NOT NULL,
-	"color" text DEFAULT '#4F46E5',
-	"createdAt" timestamp DEFAULT now()
-);
---> statement-breakpoint
-CREATE TABLE "nova_transaction_tag" (
-	"id" serial PRIMARY KEY NOT NULL,
-	"transactionId" integer NOT NULL,
-	"tagId" integer NOT NULL
+	"connectedAt" timestamp DEFAULT now() NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE "nova_transaction" (
@@ -63,6 +40,7 @@ CREATE TABLE "nova_transaction" (
 	"currency" text DEFAULT 'USD',
 	"date" timestamp DEFAULT now(),
 	"status" "status" DEFAULT 'cleared',
+	"autoTag" varchar(255) NOT NULL,
 	"paymentMethod" text,
 	"isRecurring" boolean DEFAULT false,
 	"createdAt" timestamp DEFAULT now()
@@ -84,12 +62,8 @@ CREATE TABLE "nova_verification_token" (
 );
 --> statement-breakpoint
 ALTER TABLE "nova_account" ADD CONSTRAINT "nova_account_userId_nova_user_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."nova_user"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "nova_log" ADD CONSTRAINT "nova_log_userId_nova_user_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."nova_user"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "nova_session" ADD CONSTRAINT "nova_session_userId_nova_user_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."nova_user"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "nova_social_account" ADD CONSTRAINT "nova_social_account_userId_nova_user_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."nova_user"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "nova_tag" ADD CONSTRAINT "nova_tag_userId_nova_user_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."nova_user"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "nova_transaction_tag" ADD CONSTRAINT "nova_transaction_tag_transactionId_nova_transaction_id_fk" FOREIGN KEY ("transactionId") REFERENCES "public"."nova_transaction"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
-ALTER TABLE "nova_transaction_tag" ADD CONSTRAINT "nova_transaction_tag_tagId_nova_tag_id_fk" FOREIGN KEY ("tagId") REFERENCES "public"."nova_tag"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "nova_transaction" ADD CONSTRAINT "nova_transaction_userId_nova_user_id_fk" FOREIGN KEY ("userId") REFERENCES "public"."nova_user"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 ALTER TABLE "nova_transaction" ADD CONSTRAINT "nova_transaction_socialAccountId_nova_social_account_id_fk" FOREIGN KEY ("socialAccountId") REFERENCES "public"."nova_social_account"("id") ON DELETE no action ON UPDATE no action;--> statement-breakpoint
 CREATE INDEX "account_user_id_idx" ON "nova_account" USING btree ("userId");--> statement-breakpoint

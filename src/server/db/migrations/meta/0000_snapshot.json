@@ -1,5 +1,5 @@
 {
-  "id": "a4565584-a60e-4e27-b159-657d0766a054",
+  "id": "32a53b57-179f-4e2d-8d20-1abcf2b76dd2",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -121,70 +121,6 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.nova_log": {
-      "name": "nova_log",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "userId": {
-          "name": "userId",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "type": {
-          "name": "type",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "message": {
-          "name": "message",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "details": {
-          "name": "details",
-          "type": "jsonb",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "now()"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "nova_log_userId_nova_user_id_fk": {
-          "name": "nova_log_userId_nova_user_id_fk",
-          "tableFrom": "nova_log",
-          "tableTo": "nova_user",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
     "public.nova_session": {
       "name": "nova_session",
       "schema": "",
@@ -284,7 +220,7 @@
           "name": "connectedAt",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "default": "now()"
         }
       },
@@ -296,123 +232,6 @@
           "tableTo": "nova_user",
           "columnsFrom": [
             "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.nova_tag": {
-      "name": "nova_tag",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "userId": {
-          "name": "userId",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "name": {
-          "name": "name",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "color": {
-          "name": "color",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "'#4F46E5'"
-        },
-        "createdAt": {
-          "name": "createdAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "now()"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "nova_tag_userId_nova_user_id_fk": {
-          "name": "nova_tag_userId_nova_user_id_fk",
-          "tableFrom": "nova_tag",
-          "tableTo": "nova_user",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
-    "public.nova_transaction_tag": {
-      "name": "nova_transaction_tag",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "transactionId": {
-          "name": "transactionId",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "tagId": {
-          "name": "tagId",
-          "type": "integer",
-          "primaryKey": false,
-          "notNull": true
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "nova_transaction_tag_transactionId_nova_transaction_id_fk": {
-          "name": "nova_transaction_tag_transactionId_nova_transaction_id_fk",
-          "tableFrom": "nova_transaction_tag",
-          "tableTo": "nova_transaction",
-          "columnsFrom": [
-            "transactionId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        },
-        "nova_transaction_tag_tagId_nova_tag_id_fk": {
-          "name": "nova_transaction_tag_tagId_nova_tag_id_fk",
-          "tableFrom": "nova_transaction_tag",
-          "tableTo": "nova_tag",
-          "columnsFrom": [
-            "tagId"
           ],
           "columnsTo": [
             "id"
@@ -489,6 +308,12 @@
           "primaryKey": false,
           "notNull": false,
           "default": "'cleared'"
+        },
+        "autoTag": {
+          "name": "autoTag",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
         },
         "paymentMethod": {
           "name": "paymentMethod",

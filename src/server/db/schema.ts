@@ -98,7 +98,8 @@ export const transactionsTable = createTableFunction("transaction", (d) => ({
   currency: d.text().default("USD"),
   date: d.timestamp().defaultNow(),
   status: statusEnum().default("cleared"),
-  paymentMethod: d.text(), // PayPal, ACH, etc.
+  autoTag: d.varchar({ length: 255 }).notNull(),
+  paymentMethod: d.text(), // PayPal, ACH etc.
   isRecurring: d.boolean().default(false),
   createdAt: d.timestamp().defaultNow(),
 }));
@@ -121,51 +122,11 @@ export const socialAccountsTable = createTableFunction(
   }),
 );
 
-export const tagsTable = createTableFunction("tag", (d) => ({
-  id: d.serial().primaryKey(),
-  userId: d
-    .varchar({ length: 255 })
-    .notNull()
-    .references(() => usersTable.id),
-  name: d.text().notNull(), // e.g. "ad_revenue", "affiliate", "merch_sales"
-  color: d.text().default("#4F46E5"),
-  createdAt: d.timestamp().defaultNow(),
-}));
-
-export const transactionTagsTable = createTableFunction(
-  "transaction_tag",
-  (d) => ({
-    id: d.serial().primaryKey(),
-    transactionId: d
-      .integer()
-      .notNull()
-      .references(() => transactionsTable.id),
-    tagId: d
-      .integer()
-      .notNull()
-      .references(() => tagsTable.id),
-  }),
-);
-
-export const logsTable = createTableFunction("log", (d) => ({
-  id: d.serial().primaryKey(),
-  userId: d
-    .varchar({ length: 255 })
-    .notNull()
-    .references(() => usersTable.id),
-  type: d.text().notNull(), // "ai_tagging", "api_sync", etc.
-  message: d.text(),
-  details: d.jsonb(), // e.g. { source: "YouTube", count: 12 }
-  createdAt: d.timestamp().defaultNow(),
-}));
-
 // ------------------ RELATIONS ------------------
 export const usersRelations = relations(usersTable, ({ many }) => ({
   accounts: many(accountsTable),
   transactions: many(transactionsTable),
   socialAccounts: many(socialAccountsTable),
-  tags: many(tagsTable),
-  logs: many(logsTable),
 }));
 
 export const accountsRelations = relations(accountsTable, ({ one }) => ({
@@ -193,7 +154,6 @@ export const transactionsRelations = relations(
       fields: [transactionsTable.socialAccountId],
       references: [socialAccountsTable.id],
     }),
-    transactionTags: many(transactionTagsTable),
   }),
 );
 
@@ -207,32 +167,3 @@ export const socialAccountsRelations = relations(
     }),
   }),
 );
-
-export const tagsRelations = relations(tagsTable, ({ one, many }) => ({
-  user: one(usersTable, {
-    fields: [tagsTable.userId],
-    references: [usersTable.id],
-  }),
-  transactionTags: many(transactionTagsTable),
-}));
-
-export const transactionTagsRelations = relations(
-  transactionTagsTable,
-  ({ one }) => ({
-    transaction: one(transactionsTable, {
-      fields: [transactionTagsTable.transactionId],
-      references: [transactionsTable.id],
-    }),
-    tag: one(tagsTable, {
-      fields: [transactionTagsTable.tagId],
-      references: [tagsTable.id],
-    }),
-  }),
-);
-
-export const logsRelations = relations(logsTable, ({ one }) => ({
-  user: one(usersTable, {
-    fields: [logsTable.userId],
-    references: [usersTable.id],
-  }),
-}));

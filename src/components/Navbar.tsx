@@ -24,10 +24,7 @@ export default function Navbar() {
     setIsOpen(!isOpen);
   };
 
-  const navItems = [
-    // { name: "Pricing", href: "/pricing" },
-    // { name: "About", href: "/about" },
-  ];
+  const navItems = [];
 
   if (session?.user) {
     navItems.push({ name: "Accounts", href: "/accounts" });
@@ -95,51 +92,12 @@ export default function Navbar() {
                 </Link>
               ))}
 
-              <Button
-                variant="ghost"
-                size="icon"
-                onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-                className="group relative ml-4 rounded-full border border-white/20 bg-white/10 backdrop-blur-sm transition-all duration-300 hover:scale-110 hover:bg-white/20 dark:border-white/10 dark:bg-black/10 dark:hover:bg-black/20"
-                aria-label="Toggle dark mode"
-                style={{
-                  backdropFilter: "blur(10px) saturate(150%)",
-                  WebkitBackdropFilter: "blur(10px) saturate(150%)",
-                }}
-              >
-                <div className="relative z-10">
-                  {mounted && theme === "dark" ? (
-                    <Sun size={18} className="text-yellow-400" />
-                  ) : (
-                    <Moon size={18} className="text-blue-400" />
-                  )}
-                </div>
-                <div className="absolute inset-0 scale-0 rounded-full bg-gradient-to-r from-yellow-400/20 to-blue-400/20 blur-lg transition-all duration-500 ease-out group-hover:scale-150" />
-              </Button>
-
               <SignInOutBtn />
             </div>
           </div>
 
           {/* Mobile menu button */}
           <div className="flex items-center space-x-2 md:hidden">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="rounded-full border border-white/20 bg-white/10 backdrop-blur-sm transition-all duration-300 hover:bg-white/20 dark:border-white/10 dark:bg-black/10 dark:hover:bg-black/20"
-              aria-label="Toggle dark mode"
-              style={{
-                backdropFilter: "blur(10px) saturate(150%)",
-                WebkitBackdropFilter: "blur(10px) saturate(150%)",
-              }}
-            >
-              {mounted && theme === "dark" ? (
-                <Sun size={18} className="text-yellow-400" />
-              ) : (
-                <Moon size={18} className="text-blue-400" />
-              )}
-            </Button>
-
             <Button
               variant="ghost"
               size="icon"
