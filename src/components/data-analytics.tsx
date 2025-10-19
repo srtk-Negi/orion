@@ -122,8 +122,8 @@ export function DataAnalytics() {
       .reduce((sum, t) => sum + t.amount, 0);
 
     return [
-      { name: "Recurring", value: recurring, fill: "hsl(var(--chart-1))" },
-      { name: "One-Time", value: oneTime, fill: "hsl(var(--chart-2))" },
+      { name: "Recurring", value: recurring, fill: "var(--chart-1)" },
+      { name: "One-Time", value: oneTime, fill: "var(--chart-2)" },
     ];
   }, []);
 
@@ -209,12 +209,12 @@ export function DataAnalytics() {
     "product_sales",
   ];
   const tagColors = [
-    "hsl(var(--chart-1))",
-    "hsl(var(--chart-2))",
-    "hsl(var(--chart-3))",
-    "hsl(var(--chart-4))",
-    "hsl(var(--chart-5))",
-    "hsl(var(--primary))",
+    "var(--chart-1)",
+    "var(--chart-2)",
+    "var(--chart-3)",
+    "var(--chart-4)",
+    "var(--chart-5)",
+    "var(--primary)",
   ];
 
   const toggleTag = (tag: string) => {
@@ -335,7 +335,7 @@ export function DataAnalytics() {
                   <Line
                     type="monotone"
                     dataKey="avg"
-                    stroke="hsl(var(--primary))"
+                    stroke="var(--primary)"
                     strokeWidth={2}
                     dot={false}
                   />
@@ -364,7 +364,7 @@ export function DataAnalytics() {
               <Tooltip formatter={(value: number) => `$${value.toFixed(2)}`} />
               <Bar
                 dataKey="value"
-                fill="hsl(var(--primary))"
+                fill="var(--primary)"
                 radius={[4, 4, 0, 0]}
               />
             </BarChart>

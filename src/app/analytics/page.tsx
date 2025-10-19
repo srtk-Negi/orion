@@ -9,7 +9,7 @@ const Analytics = async () => {
   }
 
   return (
-    <div className="dark radial-bg mt-10 min-h-screen p-6">
+    <div className="radial-bg mt-10 min-h-screen p-6">
       <h2 className="text-3xl font-bold tracking-tight">
         Data Analytics (metrics not being used)
       </h2>

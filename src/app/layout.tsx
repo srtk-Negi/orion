@@ -22,7 +22,7 @@ export default function RootLayout({
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className="dark scroll-smooth" suppressHydrationWarning>
-      <body className={`${oswald.className} bg-white text-white`}>
+      <body className={`${oswald.className} `}>
         <SessionProvider>
           <Navbar />
           <main>{children}</main>
