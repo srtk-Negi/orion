@@ -27,7 +27,7 @@ const ConnectedAccounts = async () => {
     .where(eq(socialAccountsTable.userId, session.user.id));
 
   return (
-    <div className="mt-10">
+    <div className="dark radial-bg mt-10">
       <PlatformsPage
         connectedAccounts={connectedAccounts}
         onConnect={async (provider, metadata) => {
