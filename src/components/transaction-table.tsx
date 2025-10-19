@@ -4,84 +4,75 @@ import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
+import { type Transaction } from "@/app/dashboard/page";
 
-interface Transaction {
-  id: string;
-  date: string;
-  time: string;
-  transactionName: string;
-  paymentSource: string;
-  autoTag: string;
-  amount: number;
-  recurring: boolean;
-  paymentMethod: string;
-  currency: string;
-  status: string;
-}
+// const generateMockTransactions = (): Transaction[] => {
+//   const platforms = [
+//     "Youtube",
+//     "Twitch",
+//     "Tiktok",
+//     "Amazon",
+//     "Shopify",
+//     "Patreon",
+//   ];
+//   const tags = [
+//     "payout",
+//     "subscription",
+//     "brand_deal",
+//     "affiliate_income",
+//     "sponsorship",
+//     "product_sales",
+//   ];
+//   const paymentMethods = ["PayPal", "ACH", "Venmo"];
+//   const statuses = ["Cleared", "Not Cleared"];
+//   const transactions: Transaction[] = [];
 
-const generateMockTransactions = (): Transaction[] => {
-  const platforms = [
-    "Youtube",
-    "Twitch",
-    "Tiktok",
-    "Amazon",
-    "Shopify",
-    "Patreon",
-  ];
-  const tags = [
-    "payout",
-    "subscription",
-    "brand_deal",
-    "affiliate_income",
-    "sponsorship",
-    "product_sales",
-  ];
-  const paymentMethods = ["PayPal", "ACH", "Venmo"];
-  const statuses = ["Cleared", "Not Cleared"];
-  const transactions: Transaction[] = [];
+//   for (let i = 1; i <= 60; i++) {
+//     const day = Math.floor(Math.random() * 30) + 1;
+//     const hour = Math.floor(Math.random() * 24);
+//     const minute = Math.floor(Math.random() * 60);
+//     const platform = platforms[Math.floor(Math.random() * platforms.length)];
+//     const tag = tags[Math.floor(Math.random() * tags.length)];
+//     const amount =
+//       Math.random() > 0.1 ? Math.random() * 5000 + 100 : -(Math.random() * 500);
+//     const paymentMethod =
+//       paymentMethods[Math.floor(Math.random() * paymentMethods.length)];
+//     const status = statuses[Math.floor(Math.random() * statuses.length)];
 
-  for (let i = 1; i <= 60; i++) {
-    const day = Math.floor(Math.random() * 30) + 1;
-    const hour = Math.floor(Math.random() * 24);
-    const minute = Math.floor(Math.random() * 60);
-    const platform = platforms[Math.floor(Math.random() * platforms.length)];
-    const tag = tags[Math.floor(Math.random() * tags.length)];
-    const amount =
-      Math.random() > 0.1 ? Math.random() * 5000 + 100 : -(Math.random() * 500);
-    const paymentMethod =
-      paymentMethods[Math.floor(Math.random() * paymentMethods.length)];
-    const status = statuses[Math.floor(Math.random() * statuses.length)];
+//     transactions.push({
+//       id: `${i}`,
+//       date: `2025-04-${day.toString().padStart(2, "0")}`,
+//       time: `${hour.toString().padStart(2, "0")}:${minute.toString().padStart(2, "0")}`,
+//       transactionName: `${platform} ${tag.replace("_", " ")} ${i}`,
+//       paymentSource: platform,
+//       autoTag: tag,
+//       amount: Math.round(amount * 100) / 100,
+//       recurring: Math.random() > 0.5,
+//       paymentMethod,
+//       currency: "USD",
+//       status,
+//     });
+//   }
 
-    transactions.push({
-      id: `${i}`,
-      date: `2025-04-${day.toString().padStart(2, "0")}`,
-      time: `${hour.toString().padStart(2, "0")}:${minute.toString().padStart(2, "0")}`,
-      transactionName: `${platform} ${tag.replace("_", " ")} ${i}`,
-      paymentSource: platform,
-      autoTag: tag,
-      amount: Math.round(amount * 100) / 100,
-      recurring: Math.random() > 0.5,
-      paymentMethod,
-      currency: "USD",
-      status,
-    });
-  }
+//   return transactions.sort(
+//     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
+//   );
+// };
 
-  return transactions.sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-  );
-};
+// const mockTransactions = generateMockTransactions();
 
-const mockTransactions = generateMockTransactions();
-
-export function TransactionTable() {
+export function TransactionTable({
+  transactions,
+}: {
+  transactions: Transaction[];
+}) {
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 30;
-  const totalPages = Math.ceil(mockTransactions.length / itemsPerPage);
+  const totalPages = Math.ceil(transactions.length / itemsPerPage);
 
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const currentTransactions = mockTransactions.slice(startIndex, endIndex);
+  const currentTransactions = transactions.slice(startIndex, endIndex);
 
   const getAmountColor = (amount: number) => {
     if (amount > 0) return "text-emerald-400";
@@ -103,7 +94,7 @@ export function TransactionTable() {
 
   const getPlatformColor = (platform: string) => {
     const colors: Record<string, string> = {
-      Youtube: "bg-red-100 text-red-900 border-red-200",
+      YouTube: "bg-red-100 text-red-900 border-red-200",
       Twitch: "bg-purple-100 text-purple-900 border-purple-200",
       Tiktok: "bg-cyan-100 text-cyan-900 border-cyan-200",
       Amazon: "bg-orange-100 text-orange-900 border-orange-200",
@@ -123,7 +114,7 @@ export function TransactionTable() {
   };
 
   const getStatusColor = (status: string) => {
-    return status === "Cleared"
+    return status === "cleared"
       ? "bg-emerald-100 text-emerald-900 border-emerald-200"
       : "bg-amber-100 text-amber-900 border-amber-200";
   };
@@ -178,20 +169,17 @@ export function TransactionTable() {
                         year: "numeric",
                       })}
                     </span>
-                    <span className="text-muted-foreground/70 text-xs">
-                      {transaction.time}
-                    </span>
                   </div>
                 </td>
                 <td className="group-hover:text-primary p-4 text-sm font-medium transition-colors">
-                  {transaction.transactionName}
+                  {transaction.name}
                 </td>
                 <td className="p-4">
                   <Badge
                     variant="outline"
-                    className={`${getPlatformColor(transaction.paymentSource)}`}
+                    className={`${getPlatformColor(transaction.source)}`}
                   >
-                    {transaction.paymentSource}
+                    {transaction.source}
                   </Badge>
                 </td>
                 <td className="p-4">
@@ -224,19 +212,22 @@ export function TransactionTable() {
                   </Badge>
                 </td>
                 <td
-                  className={`p-4 text-right text-sm font-semibold ${getAmountColor(transaction.amount)} transition-all duration-200`}
+                  className={`p-4 text-right text-sm font-semibold ${getAmountColor(Number(transaction.amount))} transition-all duration-200`}
                 >
                   $
-                  {Math.abs(transaction.amount).toLocaleString("en-US", {
-                    minimumFractionDigits: 2,
-                  })}
+                  {Math.abs(Number(transaction.amount)).toLocaleString(
+                    "en-US",
+                    {
+                      minimumFractionDigits: 2,
+                    },
+                  )}
                 </td>
                 <td className="p-4 text-center">
                   <Badge
-                    variant={transaction.recurring ? "default" : "secondary"}
+                    variant={transaction.isRecurring ? "default" : "secondary"}
                     className="text-xs"
                   >
-                    {transaction.recurring ? "Recurring" : "One-Time"}
+                    {transaction.isRecurring ? "Recurring" : "One-Time"}
                   </Badge>
                 </td>
               </tr>

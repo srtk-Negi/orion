@@ -1,6 +1,6 @@
 export const MOCK_PLATFORMS = [
   {
-    provider: "youtube",
+    provider: "YouTube",
     providerName: "YouTube",
     metadata: {
       accountName: "MrBeast",
@@ -9,7 +9,7 @@ export const MOCK_PLATFORMS = [
     },
   },
   {
-    provider: "twitch",
+    provider: "Twitch",
     providerName: "Twitch",
     metadata: {
       accountName: "MrBeast",
@@ -17,7 +17,7 @@ export const MOCK_PLATFORMS = [
     },
   },
   {
-    provider: "tiktok",
+    provider: "Tiktok",
     providerName: "TikTok",
     metadata: {
       accountName: "MrBeast",
@@ -25,7 +25,7 @@ export const MOCK_PLATFORMS = [
     },
   },
   {
-    provider: "shopify",
+    provider: "Shopify",
     providerName: "Shopify",
     metadata: {
       accountName: "MrBeast",
@@ -33,7 +33,7 @@ export const MOCK_PLATFORMS = [
     },
   },
   {
-    provider: "amazon",
+    provider: "Amazon",
     providerName: "Amazon Associates",
     metadata: {
       accountName: "MrBeast",
@@ -41,7 +41,7 @@ export const MOCK_PLATFORMS = [
     },
   },
   {
-    provider: "patreon",
+    provider: "Patreon",
     providerName: "Patreon",
     metadata: {
       accountName: "MrBeast",

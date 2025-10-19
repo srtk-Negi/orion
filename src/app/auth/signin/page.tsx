@@ -72,8 +72,22 @@ export default async function SignIn({
   }
 
   return (
-    <div className="flex min-h-screen items-center justify-center">
-      <div className="w-full max-w-md space-y-8">
+    <div className="radial-bg flex min-h-screen items-center justify-center">
+      <div className="fixed inset-0 z-0">
+        {Array.from({ length: 100 }).map((_, i) => (
+          <div
+            key={i}
+            className="bg-foreground star-twinkle absolute h-1 w-1 rounded-full"
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+              animationDelay: `${Math.random() * 2}s`,
+              opacity: Math.random() * 0.7 + 0.3,
+            }}
+          />
+        ))}
+      </div>
+      <div className="z-10 w-full max-w-md space-y-8">
         {params.error && (
           <div className="rounded-md border border-red-200 bg-red-50 p-4">
             <p className="text-sm text-red-600">
@@ -95,7 +109,7 @@ export default async function SignIn({
           </div>
         )}
 
-        <Card className="w-full max-w-md">
+        <Card className="dark z-10 w-full max-w-md">
           <CardHeader className="space-y-1 text-center">
             <CardTitle className="text-2xl font-bold">Sign in</CardTitle>
             <CardDescription>

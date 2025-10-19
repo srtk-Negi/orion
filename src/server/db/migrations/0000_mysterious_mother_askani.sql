@@ -1,4 +1,4 @@
-CREATE TYPE "public"."source" AS ENUM('youtube', 'twitch', 'tiktok', 'amazon', 'shopify');--> statement-breakpoint
+CREATE TYPE "public"."source" AS ENUM('YouTube', 'Twitch', 'Tiktok', 'Amazon', 'Shopify');--> statement-breakpoint
 CREATE TYPE "public"."status" AS ENUM('pending', 'cleared', 'failed');--> statement-breakpoint
 CREATE TABLE "nova_account" (
 	"userId" varchar(255) NOT NULL,
@@ -37,13 +37,12 @@ CREATE TABLE "nova_transaction" (
 	"source" "source" NOT NULL,
 	"name" text NOT NULL,
 	"amount" numeric(12, 2) NOT NULL,
-	"currency" text DEFAULT 'USD',
-	"date" timestamp DEFAULT now(),
-	"status" "status" DEFAULT 'cleared',
+	"currency" text DEFAULT 'USD' NOT NULL,
+	"date" timestamp DEFAULT now() NOT NULL,
+	"status" "status" DEFAULT 'cleared' NOT NULL,
 	"autoTag" varchar(255) NOT NULL,
-	"paymentMethod" text,
-	"isRecurring" boolean DEFAULT false,
-	"createdAt" timestamp DEFAULT now()
+	"paymentMethod" text NOT NULL,
+	"isRecurring" boolean DEFAULT false NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE "nova_user" (

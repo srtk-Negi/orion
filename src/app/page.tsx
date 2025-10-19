@@ -1,11 +1,8 @@
-import { TransactionTable } from "@/components/transaction-table";
-import { Constellation } from "@/components/constellation";
-import { DataAnalytics } from "@/components/data-analytics";
+import Link from "next/link";
 
-export default function Home() {
+export default function HomePage() {
   return (
-    <div className="relative min-h-[150vh] overflow-hidden">
-      {/* Background stars */}
+    <div className="radial-bg relative min-h-screen overflow-hidden">
       <div className="fixed inset-0 z-0">
         {Array.from({ length: 100 }).map((_, i) => (
           <div
@@ -20,65 +17,28 @@ export default function Home() {
           />
         ))}
       </div>
+      {/* Hero Section */}
+      <section className="relative flex min-h-screen flex-col items-center justify-center">
+        <div className="flex w-screen flex-col items-center justify-center">
+          <video
+            src="/videos/NovaTitleAnim.webm"
+            autoPlay
+            loop
+            muted
+            playsInline
+            className="h-[40%] w-[40%]"
+            style={{ pointerEvents: "none" }}
+          />
 
-      {/* Main content */}
-      <div className="relative z-10">
-        {/* Header */}
-        <header className="border-border/50 border-b backdrop-blur-sm">
-          <div className="container mx-auto px-4 py-6">
-            <div className="flex items-center justify-between">
-              <div className="group flex cursor-pointer items-center gap-3">
-                <Constellation />
-                <h1 className="shimmer-text text-2xl font-bold tracking-tight transition-colors duration-300 hover:text-purple-400">
-                  Nova
-                </h1>
-              </div>
-              <nav className="flex items-center gap-6">
-                <a
-                  href="#"
-                  className="text-muted-foreground hover:text-foreground text-sm transition-colors"
-                >
-                  Dashboard
-                </a>
-              </nav>
-            </div>
+          <div className="flex flex-col items-center justify-center gap-4">
+            <Link href={"/auth/signin"}>
+              <button className="btn-custom px-16 py-10 text-3xl">
+                Get Started
+              </button>
+            </Link>
           </div>
-        </header>
-
-        {/* Hero section */}
-        <section className="container mx-auto px-4 py-24 text-center">
-          <div className="mb-6 flex items-center justify-center gap-4">
-            <h2 className="shimmer-text text-secondary-foreground text-8xl font-bold transition-colors duration-500 hover:text-purple-400">
-              Dashboard
-            </h2>
-            <Constellation />
-          </div>
-          <p className="text-muted-foreground mx-auto max-w-2xl text-xl text-pretty">
-            Where data meets cosmos
-          </p>
-        </section>
-
-        {/* Transaction table */}
-        <section className="container mx-auto px-4 pb-16">
-          <TransactionTable />
-        </section>
-
-        {/* Data Analytics section */}
-        <section className="container mx-auto px-4 pb-32">
-          <div className="mb-8">
-            <h2 className="text-3xl font-bold tracking-tight">
-              Data Analytics (metrics not being used)
-            </h2>
-            <p className="text-muted-foreground mt-2">
-              Comprehensive insights into your income streams
-            </p>
-          </div>
-          <DataAnalytics />
-        </section>
-
-        {/* Added extra spacing to make page longer */}
-        <div className="h-32" />
-      </div>
+        </div>
+      </section>
     </div>
   );
 }

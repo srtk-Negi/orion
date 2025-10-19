@@ -2,17 +2,13 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
-import { Menu, X, Moon, Sun } from "lucide-react";
-import { useTheme } from "next-themes";
-import { Button } from "@/components/ui/button";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-  const { theme, setTheme } = useTheme();
   const { data: session } = useSession();
   const router = useRouter();
 
@@ -27,13 +23,15 @@ export default function Navbar() {
   const navItems = [];
 
   if (session?.user) {
+    navItems.push({ name: "Dashboard", href: "/dashboard" });
+    navItems.push({ name: "Analytics", href: "/analytics" });
     navItems.push({ name: "Accounts", href: "/accounts" });
   }
 
   const SignInOutBtn = () => {
     return (
-      <Button
-        variant={"default"}
+      <button
+        className="btn-custom text-1xl px-9 py-3"
         onClick={() => {
           if (session?.user) {
             router.push("/auth/signout");
@@ -42,32 +40,27 @@ export default function Navbar() {
           }
         }}
       >
-        {session?.user ? session.user.name : "SignIn"}
-      </Button>
+        {session?.user ? session.user.name : "Sign In"}
+      </button>
     );
   };
 
   return (
     <header
-      className={`fixed top-0 right-0 left-0 z-50 transition-all duration-500 ease-out ${
-        scrolled
-          ? "border-white/20 bg-white/10 shadow-lg shadow-black/5 backdrop-blur-xl dark:border-white/10 dark:bg-black/10 dark:shadow-white/5"
-          : "border-white/10 bg-white/5 backdrop-blur-lg dark:border-white/5 dark:bg-black/5"
-      } border-b`}
-      style={{
-        backdropFilter: "blur(20px) saturate(180%)",
-        WebkitBackdropFilter: "blur(20px) saturate(180%)",
-      }}
+      className={`fixed top-0 right-0 left-0 z-50 border-b border-[#FFDC6A] bg-[#1E113D]`}
     >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between">
+      <div className="px-2 sm:px-4 lg:px-6">
+        <div className="flex h-16 w-full items-center justify-between">
           <div className="flex-shrink-0">
-            <Link
-              href="/"
-              className="group relative text-xl font-bold tracking-tighter text-gray-900 transition-all duration-300 ease-out hover:scale-105 dark:text-white"
-            >
-              Nova
-              <div className="absolute inset-0 -z-10 bg-gradient-to-r from-blue-500/20 via-purple-500/20 to-cyan-500/20 opacity-0 blur-lg transition-opacity duration-300 group-hover:opacity-100" />
+            <Link href="/" className="group relative flex items-center">
+              <Image
+                src="/img/NovaLogo.png"
+                alt="Nova Logo"
+                width={100}
+                height={100}
+                draggable={false}
+                className="select-none"
+              />
             </Link>
           </div>
 
@@ -94,30 +87,6 @@ export default function Navbar() {
 
               <SignInOutBtn />
             </div>
-          </div>
-
-          {/* Mobile menu button */}
-          <div className="flex items-center space-x-2 md:hidden">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={toggleMenu}
-              className="rounded-full border border-white/20 bg-white/10 backdrop-blur-sm transition-all duration-300 hover:bg-white/20 dark:border-white/10 dark:bg-black/10 dark:hover:bg-black/20"
-              aria-label="Open menu"
-              style={{
-                backdropFilter: "blur(10px) saturate(150%)",
-                WebkitBackdropFilter: "blur(10px) saturate(150%)",
-              }}
-            >
-              <div
-                className={`transition-transform duration-300 ${
-                  isOpen ? "rotate-180" : ""
-                }`}
-              >
-                {isOpen ? <X size={20} /> : <Menu size={20} />}
-              </div>
-            </Button>
-            <SignInOutBtn />
           </div>
         </div>
       </div>

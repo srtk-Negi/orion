@@ -24,7 +24,7 @@ export async function POST(req: Request) {
   const youTubeAccountId = await db
     .select({ id: socialAccountsTable.id })
     .from(socialAccountsTable)
-    .where(eq(socialAccountsTable.provider, "youtube"));
+    .where(eq(socialAccountsTable.provider, "YouTube"));
 
   if (!youTubeAccountId) return NextResponse.json({ message: "Failure" });
 

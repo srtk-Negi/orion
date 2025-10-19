@@ -9,11 +9,11 @@ export const createTableFunction = pgTableCreator(
 );
 
 export const sourceEnum = pgEnum("source", [
-  "youtube",
-  "twitch",
-  "tiktok",
-  "amazon",
-  "shopify",
+  "YouTube",
+  "Twitch",
+  "Tiktok",
+  "Amazon",
+  "Shopify",
 ]);
 export const statusEnum = pgEnum("status", ["pending", "cleared", "failed"]);
 
@@ -95,13 +95,12 @@ export const transactionsTable = createTableFunction("transaction", (d) => ({
   source: sourceEnum().notNull(),
   name: d.text().notNull(), // e.g. "Twitch Subscriptions Oct 2025"
   amount: d.numeric({ precision: 12, scale: 2 }).notNull(),
-  currency: d.text().default("USD"),
-  date: d.timestamp().defaultNow(),
-  status: statusEnum().default("cleared"),
+  currency: d.text().default("USD").notNull(),
+  date: d.timestamp().defaultNow().notNull(),
+  status: statusEnum().default("cleared").notNull(),
   autoTag: d.varchar({ length: 255 }).notNull(),
-  paymentMethod: d.text(), // PayPal, ACH etc.
-  isRecurring: d.boolean().default(false),
-  createdAt: d.timestamp().defaultNow(),
+  paymentMethod: d.text().notNull(), // PayPal, ACH etc.
+  isRecurring: d.boolean().notNull().default(false),
 }));
 
 export const socialAccountsTable = createTableFunction(
