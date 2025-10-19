@@ -3,13 +3,13 @@ import { redirect } from "next/navigation";
 import { TransactionTable } from "@/components/transaction-table";
 import { db } from "@/server/db";
 import { transactionsTable } from "@/server/db/schema";
-import { eq } from "drizzle-orm";
+import { desc, eq } from "drizzle-orm";
 
 export interface Transaction {
   id: number;
   userId: string;
   socialAccountId: number;
-  source: "youtube" | "twitch" | "tiktok" | "amazon" | "shopify";
+  source: "YouTube" | "Twitch" | "Tiktok" | "Amazon" | "Shopify";
   name: string;
   amount: string;
   currency: string;
@@ -29,10 +29,17 @@ const Dashboard = async () => {
   const transactions: Transaction[] = await db
     .select()
     .from(transactionsTable)
-    .where(eq(transactionsTable.userId, session.user.id));
+    .where(eq(transactionsTable.userId, session.user.id))
+    .orderBy(desc(transactionsTable.date));
 
   return (
-    <div className="dark radial-bg mt-10 flex min-h-screen flex-col">
+    <div className="radial-bg mt-10 min-h-screen p-6">
+      <div className="my-5 text-center">
+        <h2 className="text-3xl font-bold">Dashboard</h2>
+        <p className="text-muted-foreground mt-2">
+          A Look Into All Your Transactions
+        </p>
+      </div>
       <TransactionTable transactions={transactions} />
     </div>
   );

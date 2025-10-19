@@ -26,6 +26,7 @@ export default function Navbar() {
     navItems.push({ name: "Dashboard", href: "/dashboard" });
     navItems.push({ name: "Analytics", href: "/analytics" });
     navItems.push({ name: "Accounts", href: "/accounts" });
+    navItems.push({ name: "AI Insight", href: "/insight" });
   }
 
   const SignInOutBtn = () => {

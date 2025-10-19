@@ -6,61 +6,6 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { useState } from "react";
 import { type Transaction } from "@/app/dashboard/page";
 
-// const generateMockTransactions = (): Transaction[] => {
-//   const platforms = [
-//     "Youtube",
-//     "Twitch",
-//     "Tiktok",
-//     "Amazon",
-//     "Shopify",
-//     "Patreon",
-//   ];
-//   const tags = [
-//     "payout",
-//     "subscription",
-//     "brand_deal",
-//     "affiliate_income",
-//     "sponsorship",
-//     "product_sales",
-//   ];
-//   const paymentMethods = ["PayPal", "ACH", "Venmo"];
-//   const statuses = ["Cleared", "Not Cleared"];
-//   const transactions: Transaction[] = [];
-
-//   for (let i = 1; i <= 60; i++) {
-//     const day = Math.floor(Math.random() * 30) + 1;
-//     const hour = Math.floor(Math.random() * 24);
-//     const minute = Math.floor(Math.random() * 60);
-//     const platform = platforms[Math.floor(Math.random() * platforms.length)];
-//     const tag = tags[Math.floor(Math.random() * tags.length)];
-//     const amount =
-//       Math.random() > 0.1 ? Math.random() * 5000 + 100 : -(Math.random() * 500);
-//     const paymentMethod =
-//       paymentMethods[Math.floor(Math.random() * paymentMethods.length)];
-//     const status = statuses[Math.floor(Math.random() * statuses.length)];
-
-//     transactions.push({
-//       id: `${i}`,
-//       date: `2025-04-${day.toString().padStart(2, "0")}`,
-//       time: `${hour.toString().padStart(2, "0")}:${minute.toString().padStart(2, "0")}`,
-//       transactionName: `${platform} ${tag.replace("_", " ")} ${i}`,
-//       paymentSource: platform,
-//       autoTag: tag,
-//       amount: Math.round(amount * 100) / 100,
-//       recurring: Math.random() > 0.5,
-//       paymentMethod,
-//       currency: "USD",
-//       status,
-//     });
-//   }
-
-//   return transactions.sort(
-//     (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-//   );
-// };
-
-// const mockTransactions = generateMockTransactions();
-
 export function TransactionTable({
   transactions,
 }: {

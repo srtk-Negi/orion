@@ -10,7 +10,7 @@ import { env } from "@/env";
 async function generateAutoTag(transaction: string) {
   const ai = new GoogleGenAI({ apiKey: env.GEMINI_API_KEY });
 
-  const prompt = `You are an agent working in a creator finance management app. Your job is to take a transaction and give it a tag. For example - the transaction is about youtube add sense revenue, then the tag givenn should be ad_sense. Or lat's say it's a brand sponsorship payment, the the tag should be sponsorship. Use the following pattern to intelligently tag the given transaction. VERY VERY IMPORTANT - ONLY RETURN THE PROPER TAG IN YOUR RESPONSE. NO QUOTES, NOT PERIODS, NOTHING. PURELY JUST THE TAG AND NO OTHER PIECE OF TEXT OR ANY CHARACTER. DO NOT RETURN MARKDOWN. Here is a transaction record - ${transaction}`;
+  const prompt = `You are an agent working in a creator finance management app. Your job is to take a transaction and give it a tag. For example - the transaction is about youtube add sense revenue, then the tag given should be payout. Or lat's say it's a brand sponsorship payment, the the tag should be sponsorship. Use the following pattern to intelligently tag the given transaction. VERY VERY IMPORTANT - ONLY RETURN THE PROPER TAG IN YOUR RESPONSE. NO QUOTES, NOT PERIODS, NOTHING. PURELY JUST THE TAG AND NO OTHER PIECE OF TEXT OR ANY CHARACTER. DO NOT RETURN MARKDOWN. THE RETURNED TAG SHOULD BE ONLY FROM THIS LIST - "payout","subscription","brand_deal","affiliate_income","sponsorship","product_sales", Here is a transaction record - ${transaction}`;
 
   const response = await ai.models.generateContent({
     model: "gemini-2.5-flash",

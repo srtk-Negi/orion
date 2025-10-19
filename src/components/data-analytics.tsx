@@ -26,81 +26,35 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import { type Transaction } from "@/app/dashboard/page";
 
-interface Transaction {
-  id: string;
-  date: string;
-  amount: number;
-  type: "income" | "expense";
-  autoTag: string;
-  platform: string;
-  frequency: "recurring" | "one-time";
-}
-
-const generateAnalyticsData = (): Transaction[] => {
-  const platforms = [
-    "Youtube",
-    "Twitch",
-    "Tiktok",
-    "Amazon",
-    "Shopify",
-    "Venmo",
-  ];
-  const tags = [
-    "payout",
-    "subscription",
-    "brand_deal",
-    "affiliate_income",
-    "sponsorship",
-    "product_sales",
-  ];
-  const transactions: Transaction[] = [];
-
-  for (let i = 1; i <= 100; i++) {
-    const day = Math.floor(Math.random() * 30) + 1;
-    const platform = platforms[Math.floor(Math.random() * platforms.length)];
-    const tag = tags[Math.floor(Math.random() * tags.length)];
-    const isIncome = Math.random() > 0.15;
-    const amount = isIncome
-      ? Math.random() * 5000 + 100
-      : Math.random() * 500 + 50;
-
-    transactions.push({
-      id: `txn-${i}`,
-      date: `2025-04-${day.toString().padStart(2, "0")}`,
-      amount: Math.round(amount * 100) / 100,
-      type: isIncome ? "income" : "expense",
-      autoTag: tag,
-      platform: platform,
-      frequency: Math.random() > 0.4 ? "recurring" : "one-time",
-    });
-  }
-
-  return transactions.sort(
-    (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
-  );
-};
-
-const transactions = generateAnalyticsData();
-
-export function DataAnalytics() {
+export function DataAnalytics({
+  transactions,
+}: {
+  transactions: Transaction[];
+}) {
   const [selectedTags, setSelectedTags] = useState<string[]>([
     "payout",
     "subscription",
     "brand_deal",
   ]);
 
+  // Helper to determine if transaction is income or expense
+  const isIncome = (transaction: Transaction) => {
+    const amount = parseFloat(transaction.amount);
+    return amount > 0;
+  };
+
   // Calculate total inflow and outflow
   const { totalInflow, totalOutflow, inflowChange, outflowChange } =
     useMemo(() => {
       const currentMonth = transactions
-        .filter((t) => t.type === "income")
-        .reduce((sum, t) => sum + t.amount, 0);
+        .filter((t) => isIncome(t))
+        .reduce((sum, t) => sum + parseFloat(t.amount), 0);
       const currentExpense = transactions
-        .filter((t) => t.type === "expense")
-        .reduce((sum, t) => sum + t.amount, 0);
+        .filter((t) => !isIncome(t))
+        .reduce((sum, t) => sum + Math.abs(parseFloat(t.amount)), 0);
 
-      // Mock previous month data (80% of current for demo)
       const prevInflow = currentMonth * 0.8;
       const prevOutflow = currentExpense * 0.9;
 
@@ -110,30 +64,29 @@ export function DataAnalytics() {
         inflowChange: ((currentMonth - prevInflow) / prevInflow) * 100,
         outflowChange: ((currentExpense - prevOutflow) / prevOutflow) * 100,
       };
-    }, []);
+    }, [transactions]);
 
-  // Recurring vs One-Time data
   const frequencyData = useMemo(() => {
     const recurring = transactions
-      .filter((t) => t.frequency === "recurring" && t.type === "income")
-      .reduce((sum, t) => sum + t.amount, 0);
+      .filter((t) => t.isRecurring && isIncome(t))
+      .reduce((sum, t) => sum + parseFloat(t.amount), 0);
     const oneTime = transactions
-      .filter((t) => t.frequency === "one-time" && t.type === "income")
-      .reduce((sum, t) => sum + t.amount, 0);
+      .filter((t) => !t.isRecurring && isIncome(t))
+      .reduce((sum, t) => sum + parseFloat(t.amount), 0);
 
     return [
       { name: "Recurring", value: recurring, fill: "var(--chart-1)" },
       { name: "One-Time", value: oneTime, fill: "var(--chart-2)" },
     ];
-  }, []);
+  }, [transactions]);
 
   // Top 5 categories by income
   const topCategories = useMemo(() => {
     const categoryTotals = transactions
-      .filter((t) => t.type === "income")
+      .filter((t) => isIncome(t))
       .reduce(
         (acc, t) => {
-          acc[t.autoTag] = (acc[t.autoTag] || 0) + t.amount;
+          acc[t.autoTag] = (acc[t.autoTag] || 0) + parseFloat(t.amount);
           return acc;
         },
         {} as Record<string, number>,
@@ -143,21 +96,21 @@ export function DataAnalytics() {
       .sort(([, a], [, b]) => b - a)
       .slice(0, 5)
       .map(([name, value]) => ({ name, value }));
-  }, []);
+  }, [transactions]);
 
   // Average transaction size with trend
   const avgTransactionData = useMemo(() => {
-    const incomeTransactions = transactions.filter((t) => t.type === "income");
+    const incomeTransactions = transactions.filter((t) => isIncome(t));
     const avgSize =
-      incomeTransactions.reduce((sum, t) => sum + t.amount, 0) /
+      incomeTransactions.reduce((sum, t) => sum + parseFloat(t.amount), 0) /
       incomeTransactions.length;
 
     // Group by week for trend
     const weeklyAvg = incomeTransactions.reduce(
       (acc, t) => {
-        const week = `Week ${Math.ceil(new Date(t.date).getDate() / 7)}`;
+        const week = `Week ${Math.ceil(t.date.getDate() / 7)}`;
         if (!acc[week]) acc[week] = { total: 0, count: 0 };
-        acc[week].total += t.amount;
+        acc[week].total += parseFloat(t.amount);
         acc[week].count += 1;
         return acc;
       },
@@ -170,15 +123,15 @@ export function DataAnalytics() {
     }));
 
     return { avgSize, trendData };
-  }, []);
+  }, [transactions]);
 
   // Cash flow trend with toggleable tags
   const cashFlowData = useMemo(() => {
     const dailyData = transactions
-      .filter((t) => t.type === "income")
+      .filter((t) => isIncome(t))
       .reduce(
         (acc, t) => {
-          const date = t.date;
+          const date = t.date.toISOString().split("T")[0];
           if (!acc[date]) {
             acc[date] = { date, total: 0 };
             selectedTags.forEach((tag) => {
@@ -186,9 +139,10 @@ export function DataAnalytics() {
             });
           }
           if (selectedTags.includes(t.autoTag)) {
-            acc[date][t.autoTag] = (acc[date][t.autoTag] || 0) + t.amount;
+            acc[date][t.autoTag] =
+              (acc[date][t.autoTag] || 0) + parseFloat(t.amount);
           }
-          acc[date].total += t.amount;
+          acc[date].total += parseFloat(t.amount);
           return acc;
         },
         {} as Record<string, any>,
@@ -198,7 +152,7 @@ export function DataAnalytics() {
       (a: any, b: any) =>
         new Date(a.date).getTime() - new Date(b.date).getTime(),
     );
-  }, [selectedTags]);
+  }, [transactions, selectedTags]);
 
   const allTags = [
     "payout",

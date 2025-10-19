@@ -9,6 +9,7 @@ export const MOCK_TRANSACTIONS = [
     status: "cleared",
     paymentMethod: "PayPal",
     isRecurring: true,
+    date: new Date("2025-08-15T14:23:17.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -19,7 +20,8 @@ export const MOCK_TRANSACTIONS = [
     currency: "USD",
     status: "cleared",
     paymentMethod: "ACH",
-    isRecurring: false,
+    isRecurring: true,
+    date: new Date("2025-07-22T09:45:32.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -30,7 +32,8 @@ export const MOCK_TRANSACTIONS = [
     currency: "USD",
     status: "cleared",
     paymentMethod: "PayPal",
-    isRecurring: false,
+    isRecurring: true,
+    date: new Date("2025-09-03T16:12:48.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -41,7 +44,8 @@ export const MOCK_TRANSACTIONS = [
     currency: "USD",
     status: "cleared",
     paymentMethod: "PayPal",
-    isRecurring: false,
+    isRecurring: true,
+    date: new Date("2025-06-28T11:34:29.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -52,7 +56,8 @@ export const MOCK_TRANSACTIONS = [
     currency: "USD",
     status: "cleared",
     paymentMethod: "PayPal",
-    isRecurring: false,
+    isRecurring: true,
+    date: new Date("2025-05-14T08:56:11.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -63,7 +68,8 @@ export const MOCK_TRANSACTIONS = [
     currency: "USD",
     status: "cleared",
     paymentMethod: "PayPal",
-    isRecurring: false,
+    isRecurring: true,
+    date: new Date("2025-08-07T19:27:44.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -74,7 +80,8 @@ export const MOCK_TRANSACTIONS = [
     currency: "USD",
     status: "cleared",
     paymentMethod: "PayPal",
-    isRecurring: false,
+    isRecurring: true,
+    date: new Date("2025-09-18T13:41:55.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -85,7 +92,8 @@ export const MOCK_TRANSACTIONS = [
     currency: "USD",
     status: "pending",
     paymentMethod: "ACH",
-    isRecurring: false,
+    isRecurring: true,
+    date: new Date("2025-10-12T07:18:23.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -96,7 +104,8 @@ export const MOCK_TRANSACTIONS = [
     currency: "USD",
     status: "cleared",
     paymentMethod: "PayPal",
-    isRecurring: false,
+    isRecurring: true,
+    date: new Date("2025-07-09T15:52:36.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -107,7 +116,8 @@ export const MOCK_TRANSACTIONS = [
     currency: "USD",
     status: "pending",
     paymentMethod: "PayPal",
-    isRecurring: false,
+    isRecurring: true,
+    date: new Date("2025-10-15T10:29:41.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -118,7 +128,8 @@ export const MOCK_TRANSACTIONS = [
     currency: "USD",
     status: "failed",
     paymentMethod: "PayPal",
-    isRecurring: false,
+    isRecurring: true,
+    date: new Date("2025-06-19T12:44:18.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -130,6 +141,7 @@ export const MOCK_TRANSACTIONS = [
     status: "cleared",
     paymentMethod: "ACH",
     isRecurring: true,
+    date: new Date("2025-05-23T17:33:27.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -140,7 +152,8 @@ export const MOCK_TRANSACTIONS = [
     currency: "USD",
     status: "cleared",
     paymentMethod: "ACH",
-    isRecurring: false,
+    isRecurring: true,
+    date: new Date("2025-09-25T14:07:52.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -151,7 +164,8 @@ export const MOCK_TRANSACTIONS = [
     currency: "USD",
     status: "pending",
     paymentMethod: "PayPal",
-    isRecurring: false,
+    isRecurring: true,
+    date: new Date("2025-10-17T09:15:44.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -162,7 +176,8 @@ export const MOCK_TRANSACTIONS = [
     currency: "USD",
     status: "cleared",
     paymentMethod: "PayPal",
-    isRecurring: false,
+    isRecurring: true,
+    date: new Date("2025-08-29T11:48:19.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -173,7 +188,8 @@ export const MOCK_TRANSACTIONS = [
     currency: "USD",
     status: "cleared",
     paymentMethod: "ACH",
-    isRecurring: false,
+    isRecurring: true,
+    date: new Date("2025-07-16T08:22:34.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -184,7 +200,8 @@ export const MOCK_TRANSACTIONS = [
     currency: "USD",
     status: "cleared",
     paymentMethod: "PayPal",
-    isRecurring: false,
+    isRecurring: true,
+    date: new Date("2025-06-05T13:57:28.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -195,7 +212,8 @@ export const MOCK_TRANSACTIONS = [
     currency: "USD",
     status: "cleared",
     paymentMethod: "PayPal",
-    isRecurring: false,
+    isRecurring: true,
+    date: new Date("2025-09-11T16:39:47.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -207,6 +225,7 @@ export const MOCK_TRANSACTIONS = [
     status: "cleared",
     paymentMethod: "ACH",
     isRecurring: true,
+    date: new Date("2025-05-31T10:14:53.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -218,6 +237,7 @@ export const MOCK_TRANSACTIONS = [
     status: "cleared",
     paymentMethod: "PayPal",
     isRecurring: false,
+    date: new Date("2025-07-28T14:26:09.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -229,6 +249,7 @@ export const MOCK_TRANSACTIONS = [
     status: "cleared",
     paymentMethod: "ACH",
     isRecurring: false,
+    date: new Date("2025-08-19T09:43:16.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -240,6 +261,7 @@ export const MOCK_TRANSACTIONS = [
     status: "cleared",
     paymentMethod: "PayPal",
     isRecurring: false,
+    date: new Date("2025-06-12T18:31:42.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -251,6 +273,7 @@ export const MOCK_TRANSACTIONS = [
     status: "failed",
     paymentMethod: "PayPal",
     isRecurring: false,
+    date: new Date("2025-09-07T12:08:57.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -262,6 +285,7 @@ export const MOCK_TRANSACTIONS = [
     status: "cleared",
     paymentMethod: "ACH",
     isRecurring: true,
+    date: new Date("2025-05-08T07:52:31.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -273,6 +297,7 @@ export const MOCK_TRANSACTIONS = [
     status: "cleared",
     paymentMethod: "PayPal",
     isRecurring: false,
+    date: new Date("2025-07-03T15:19:24.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -284,6 +309,7 @@ export const MOCK_TRANSACTIONS = [
     status: "pending",
     paymentMethod: "PayPal",
     isRecurring: false,
+    date: new Date("2025-10-14T11:37:49.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -295,6 +321,7 @@ export const MOCK_TRANSACTIONS = [
     status: "cleared",
     paymentMethod: "PayPal",
     isRecurring: false,
+    date: new Date("2025-08-23T13:54:38.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -306,6 +333,7 @@ export const MOCK_TRANSACTIONS = [
     status: "cleared",
     paymentMethod: "ACH",
     isRecurring: false,
+    date: new Date("2025-06-17T16:42:21.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -317,6 +345,7 @@ export const MOCK_TRANSACTIONS = [
     status: "cleared",
     paymentMethod: "PayPal",
     isRecurring: false,
+    date: new Date("2025-09-29T10:25:14.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -328,6 +357,7 @@ export const MOCK_TRANSACTIONS = [
     status: "cleared",
     paymentMethod: "PayPal",
     isRecurring: true,
+    date: new Date("2025-05-27T14:11:46.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -339,6 +369,7 @@ export const MOCK_TRANSACTIONS = [
     status: "cleared",
     paymentMethod: "PayPal",
     isRecurring: false,
+    date: new Date("2025-07-12T09:38:52.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -350,6 +381,7 @@ export const MOCK_TRANSACTIONS = [
     status: "cleared",
     paymentMethod: "ACH",
     isRecurring: false,
+    date: new Date("2025-08-11T17:29:33.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -361,6 +393,7 @@ export const MOCK_TRANSACTIONS = [
     status: "pending",
     paymentMethod: "PayPal",
     isRecurring: false,
+    date: new Date("2025-10-16T08:47:26.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -372,6 +405,7 @@ export const MOCK_TRANSACTIONS = [
     status: "cleared",
     paymentMethod: "PayPal",
     isRecurring: false,
+    date: new Date("2025-06-24T12:15:39.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -383,6 +417,7 @@ export const MOCK_TRANSACTIONS = [
     status: "cleared",
     paymentMethod: "PayPal",
     isRecurring: false,
+    date: new Date("2025-09-21T15:33:48.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -394,6 +429,7 @@ export const MOCK_TRANSACTIONS = [
     status: "pending",
     paymentMethod: "PayPal",
     isRecurring: false,
+    date: new Date("2025-10-18T13:21:57.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -405,6 +441,7 @@ export const MOCK_TRANSACTIONS = [
     status: "cleared",
     paymentMethod: "ACH",
     isRecurring: false,
+    date: new Date("2025-05-19T11:56:13.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -416,6 +453,7 @@ export const MOCK_TRANSACTIONS = [
     status: "cleared",
     paymentMethod: "PayPal",
     isRecurring: false,
+    date: new Date("2025-07-31T16:44:28.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -427,6 +465,7 @@ export const MOCK_TRANSACTIONS = [
     status: "cleared",
     paymentMethod: "PayPal",
     isRecurring: false,
+    date: new Date("2025-08-05T09:17:51.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -438,6 +477,7 @@ export const MOCK_TRANSACTIONS = [
     status: "pending",
     paymentMethod: "PayPal",
     isRecurring: false,
+    date: new Date("2025-10-13T14:52:36.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -449,6 +489,7 @@ export const MOCK_TRANSACTIONS = [
     status: "cleared",
     paymentMethod: "PayPal",
     isRecurring: false,
+    date: new Date("2025-06-08T10:34:42.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -460,6 +501,7 @@ export const MOCK_TRANSACTIONS = [
     status: "failed",
     paymentMethod: "PayPal",
     isRecurring: false,
+    date: new Date("2025-09-14T18:23:09.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -471,6 +513,7 @@ export const MOCK_TRANSACTIONS = [
     status: "cleared",
     paymentMethod: "ACH",
     isRecurring: false,
+    date: new Date("2025-05-12T15:41:27.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -482,6 +525,7 @@ export const MOCK_TRANSACTIONS = [
     status: "cleared",
     paymentMethod: "ACH",
     isRecurring: false,
+    date: new Date("2025-07-19T12:28:54.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -493,6 +537,7 @@ export const MOCK_TRANSACTIONS = [
     status: "cleared",
     paymentMethod: "PayPal",
     isRecurring: false,
+    date: new Date("2025-08-26T11:09:18.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -504,6 +549,7 @@ export const MOCK_TRANSACTIONS = [
     status: "cleared",
     paymentMethod: "PayPal",
     isRecurring: true,
+    date: new Date("2025-06-30T14:55:32.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -515,6 +561,7 @@ export const MOCK_TRANSACTIONS = [
     status: "cleared",
     paymentMethod: "ACH",
     isRecurring: false,
+    date: new Date("2025-09-05T17:12:45.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -526,6 +573,7 @@ export const MOCK_TRANSACTIONS = [
     status: "pending",
     paymentMethod: "ACH",
     isRecurring: false,
+    date: new Date("2025-10-11T09:38:21.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -537,6 +585,7 @@ export const MOCK_TRANSACTIONS = [
     status: "cleared",
     paymentMethod: "PayPal",
     isRecurring: false,
+    date: new Date("2025-07-25T13:47:19.000Z"),
   },
   {
     userId: "0a14c304-373b-482a-afd5-d14801e3f07b",
@@ -548,5 +597,6 @@ export const MOCK_TRANSACTIONS = [
     status: "cleared",
     paymentMethod: "PayPal",
     isRecurring: false,
+    date: new Date("2025-08-02T16:24:57.000Z"),
   },
 ];

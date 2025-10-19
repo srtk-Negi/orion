@@ -1,12 +1,12 @@
 import { auth } from "@/server/auth";
 import { redirect } from "next/navigation";
-import { DataAnalytics } from "@/components/data-analytics";
+import { TransactionTable } from "@/components/transaction-table";
 import { db } from "@/server/db";
 import { transactionsTable } from "@/server/db/schema";
-import { eq } from "drizzle-orm";
-import { type Transaction } from "@/app/dashboard/page";
+import { desc, eq } from "drizzle-orm";
+import { type Transaction } from "../dashboard/page";
 
-const Analytics = async () => {
+const Insight = async () => {
   const session = await auth();
   if (!session?.user) {
     redirect("/auth/signin");
@@ -15,19 +15,20 @@ const Analytics = async () => {
   const transactions: Transaction[] = await db
     .select()
     .from(transactionsTable)
-    .where(eq(transactionsTable.userId, session.user.id));
+    .where(eq(transactionsTable.userId, session.user.id))
+    .orderBy(desc(transactionsTable.date));
 
   return (
     <div className="radial-bg mt-10 min-h-screen p-6">
       <div className="my-5 text-center">
-        <h2 className="text-3xl font-bold">Data Analytics</h2>
+        <h2 className="text-3xl font-bold">Insights</h2>
         <p className="text-muted-foreground mt-2">
-          Comprehensive insights into your income streams
+          Get AI Insight Of Your Finances
         </p>
       </div>
-      <DataAnalytics transactions={transactions} />
+      <TransactionTable transactions={transactions} />
     </div>
   );
 };
 
-export default Analytics;
+export default Insight;
