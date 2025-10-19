@@ -91,7 +91,7 @@ export const transactionsTable = createTableFunction("transaction", (d) => ({
     .varchar({ length: 255 })
     .notNull()
     .references(() => usersTable.id),
-  financialAccountId: d.serial().references(() => financialAccountsTable.id),
+  socialAccountId: d.serial().references(() => socialAccountsTable.id),
   source: sourceEnum().notNull(),
   name: d.text().notNull(), // e.g. "Twitch Subscriptions Oct 2025"
   amount: d.numeric({ precision: 12, scale: 2 }).notNull(),
@@ -103,8 +103,8 @@ export const transactionsTable = createTableFunction("transaction", (d) => ({
   createdAt: d.timestamp().defaultNow(),
 }));
 
-export const financialAccountsTable = createTableFunction(
-  "financial_account",
+export const socialAccountsTable = createTableFunction(
+  "social_account",
   (d) => ({
     id: d.serial().primaryKey(),
     userId: d
@@ -112,11 +112,12 @@ export const financialAccountsTable = createTableFunction(
       .notNull()
       .references(() => usersTable.id),
     provider: d.text().notNull(), // e.g. "youtube", "twitch", "shopify"
-    providerAccountId: d.text().notNull(), // external ID
-    accessToken: d.text(),
-    refreshToken: d.text(),
-    metadata: d.jsonb(), // optional details like channel name
-    connectedAt: d.timestamp().defaultNow(),
+    providerAccountId: d
+      .varchar({ length: 255 })
+      .notNull()
+      .$defaultFn(() => crypto.randomUUID()),
+    metadata: d.jsonb(), // optional details like channel name, subscriber count, etc
+    connectedAt: d.timestamp().notNull().defaultNow(),
   }),
 );
 
@@ -162,7 +163,7 @@ export const logsTable = createTableFunction("log", (d) => ({
 export const usersRelations = relations(usersTable, ({ many }) => ({
   accounts: many(accountsTable),
   transactions: many(transactionsTable),
-  financialAccounts: many(financialAccountsTable),
+  socialAccounts: many(socialAccountsTable),
   tags: many(tagsTable),
   logs: many(logsTable),
 }));
@@ -188,20 +189,20 @@ export const transactionsRelations = relations(
       fields: [transactionsTable.userId],
       references: [usersTable.id],
     }),
-    financialAccount: one(financialAccountsTable, {
-      fields: [transactionsTable.financialAccountId],
-      references: [financialAccountsTable.id],
+    socialAccount: one(socialAccountsTable, {
+      fields: [transactionsTable.socialAccountId],
+      references: [socialAccountsTable.id],
     }),
     transactionTags: many(transactionTagsTable),
   }),
 );
 
-export const financialAccountsRelations = relations(
-  financialAccountsTable,
+export const socialAccountsRelations = relations(
+  socialAccountsTable,
   ({ many, one }) => ({
     transactions: many(transactionsTable),
     user: one(usersTable, {
-      fields: [financialAccountsTable.userId],
+      fields: [socialAccountsTable.userId],
       references: [usersTable.id],
     }),
   }),

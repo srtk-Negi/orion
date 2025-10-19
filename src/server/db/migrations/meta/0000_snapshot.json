@@ -1,5 +1,5 @@
 {
-  "id": "39dfbf53-de92-482c-9d0d-1a577a489454",
+  "id": "a4565584-a60e-4e27-b159-657d0766a054",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -121,82 +121,6 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
-    "public.nova_financial_account": {
-      "name": "nova_financial_account",
-      "schema": "",
-      "columns": {
-        "id": {
-          "name": "id",
-          "type": "serial",
-          "primaryKey": true,
-          "notNull": true
-        },
-        "userId": {
-          "name": "userId",
-          "type": "varchar(255)",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "provider": {
-          "name": "provider",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "providerAccountId": {
-          "name": "providerAccountId",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": true
-        },
-        "accessToken": {
-          "name": "accessToken",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "refreshToken": {
-          "name": "refreshToken",
-          "type": "text",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "metadata": {
-          "name": "metadata",
-          "type": "jsonb",
-          "primaryKey": false,
-          "notNull": false
-        },
-        "connectedAt": {
-          "name": "connectedAt",
-          "type": "timestamp",
-          "primaryKey": false,
-          "notNull": false,
-          "default": "now()"
-        }
-      },
-      "indexes": {},
-      "foreignKeys": {
-        "nova_financial_account_userId_nova_user_id_fk": {
-          "name": "nova_financial_account_userId_nova_user_id_fk",
-          "tableFrom": "nova_financial_account",
-          "tableTo": "nova_user",
-          "columnsFrom": [
-            "userId"
-          ],
-          "columnsTo": [
-            "id"
-          ],
-          "onDelete": "no action",
-          "onUpdate": "no action"
-        }
-      },
-      "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
-      "policies": {},
-      "checkConstraints": {},
-      "isRLSEnabled": false
-    },
     "public.nova_log": {
       "name": "nova_log",
       "schema": "",
@@ -305,6 +229,70 @@
         "nova_session_userId_nova_user_id_fk": {
           "name": "nova_session_userId_nova_user_id_fk",
           "tableFrom": "nova_session",
+          "tableTo": "nova_user",
+          "columnsFrom": [
+            "userId"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
+    "public.nova_social_account": {
+      "name": "nova_social_account",
+      "schema": "",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "serial",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "userId": {
+          "name": "userId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "provider": {
+          "name": "provider",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "providerAccountId": {
+          "name": "providerAccountId",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "metadata": {
+          "name": "metadata",
+          "type": "jsonb",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "connectedAt": {
+          "name": "connectedAt",
+          "type": "timestamp",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "now()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "nova_social_account_userId_nova_user_id_fk": {
+          "name": "nova_social_account_userId_nova_user_id_fk",
+          "tableFrom": "nova_social_account",
           "tableTo": "nova_user",
           "columnsFrom": [
             "userId"
@@ -455,8 +443,8 @@
           "primaryKey": false,
           "notNull": true
         },
-        "financialAccountId": {
-          "name": "financialAccountId",
+        "socialAccountId": {
+          "name": "socialAccountId",
           "type": "serial",
           "primaryKey": false,
           "notNull": true
@@ -538,12 +526,12 @@
           "onDelete": "no action",
           "onUpdate": "no action"
         },
-        "nova_transaction_financialAccountId_nova_financial_account_id_fk": {
-          "name": "nova_transaction_financialAccountId_nova_financial_account_id_fk",
+        "nova_transaction_socialAccountId_nova_social_account_id_fk": {
+          "name": "nova_transaction_socialAccountId_nova_social_account_id_fk",
           "tableFrom": "nova_transaction",
-          "tableTo": "nova_financial_account",
+          "tableTo": "nova_social_account",
           "columnsFrom": [
-            "financialAccountId"
+            "socialAccountId"
           ],
           "columnsTo": [
             "id"

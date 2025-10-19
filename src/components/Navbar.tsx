@@ -30,7 +30,7 @@ export default function Navbar() {
   ];
 
   if (session?.user) {
-    navItems.push({ name: "Teams", href: "/tenants" });
+    navItems.push({ name: "Accounts", href: "/accounts" });
   }
 
   const SignInOutBtn = () => {
